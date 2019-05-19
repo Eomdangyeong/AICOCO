@@ -1,0 +1,54 @@
+#근데 이거 돌리기전에 꼭 chromedriver다운 받아야해 
+#이거 쓰면 돌아가고 폴더도 생기는데
+#cmd창 같은건데 chromedriver.exe 뜨고 크롬창 뜨고 스크롤 막 내려가다가
+#ERROR:browser_process_sub_thread.cc이거 라고 에러 뜨는데 무슨 에러인지 구글링 해도 잘 모르겠어
+#그리고 실행창에 이미지 url은 막 뜨는데 can't get image라고 뜨고 0 pictures succesfully downloaded이렇게 된다
+#헬프... ^_________^
+
+import os
+import urllib.request
+from selenium import webdriver
+import argparse
+from selenium.webdriver.support.ui import WebDriverWait
+import json
+
+#검색어넣어주면돼, 폴더이름도 이걸로 생김 
+searchterm = 'Lily'
+
+url = "https://www.google.co.in/search?q="+searchterm+"&source=lnms&tbm=isch"
+
+#chrome driver다운받아서 그 경로를 아래에 입력해줘야함
+browser = webdriver.Chrome(r"C:\Users\eksru\AppData\Local\Programs\Python\Python36\chromedriver.exe")
+browser.get(url)
+header={'User-Agent':"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36"}
+counter = 0
+succounter = 0
+
+ 
+if not os.path.exists(searchterm):
+    os.mkdir(searchterm)
+#스크롤 내려
+#이 range안에 수만큼 돌아가긴해,,
+for _ in range(200):
+    browser.execute_script("window.scrollBy(0,10000)")
+ 
+for x in browser.find_elements_by_xpath('//div[contains(@class,"rg_meta")]'):
+    counter = counter + 1
+    print ("Total Count:", counter)
+    print ("Succsessful Count:", succounter)
+    print ("URL:",json.loads(x.get_attribute('innerHTML'))["ou"])
+ 
+    img = json.loads(x.get_attribute('innerHTML'))["ou"]
+    imgtype = json.loads(x.get_attribute('innerHTML'))["ity"]
+    try:
+        req = urllib.request(img, headers={'User-Agent': header})
+        raw_img = urllib.request.urlopen(req).read()
+        File = open(os.path.join(searchterm , searchterm + "_" + str(counter) + "." + imgtype), "wb")
+        File.write(raw_img)
+        File.close()
+        succounter = succounter + 1
+    except:
+            print ("can't get img")
+ 
+print (succounter, "pictures succesfully downloaded")
+browser.close()
