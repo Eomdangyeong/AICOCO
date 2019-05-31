@@ -48,9 +48,12 @@ x_data_list_test = forsythia_test + buckwheat_test + sunflower_test + cosmos_tes
 print("저장 중")
 np.save("database2_test",x_data_list_test)
 print("끝", len(x_data_list_test))
-#database=np.load("database2_test.csv")
+#database=np.load("database2_test")
 #print(database_test)
-
+#출처 https://stackoverflow.com/questions/19573809/open-images-from-a-folder-one-by-one-using-python
+#출처 https://blog.naver.com/PostView.nhn?blogId=zzing0907&logNo=220213633559
+#출처 https://stackoverflow.com/questions/51884439/store-and-label-image-in-a-2d-array-for-tensorflow
+#출처 https://gldmg.tistory.com/43
 
 
 
