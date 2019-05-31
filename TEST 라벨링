@@ -41,7 +41,7 @@ tulip_test = load_data("tulip_test",6)
 cherryblossom_test = load_data("cherryblossom_test",7)
 rose_test = load_data("rose_test",8)
 korearose_test = load_data("korearose_test",9)
-#각 폴더 안에 있는 각 사진마다 번호를 라벨링하는거야 만약  forsythia면 그 폴더 안에 5700장에다가 0으로 라벨링하는거야
+#각 폴더 안에 있는 각 사진에다 클래스의 번호를 라벨링하는거임
 print("labeling finish")
 
 x_data_list_test = forsythia_test + buckwheat_test + sunflower_test + cosmos_test + lily_test + roseofsharon_test + tulip_test + cherryblossom_test + rose_test + korearose_test
